@@ -1,9 +1,11 @@
+import React, { Component } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Toolbar from "../../components/Toolbar";
 import BurgerPage from "../BurgerPage";
+import OrderPage from "../OrderPage";
+import ShippingPage from "../ShippingPage";
 import SideBar from "../../components/Sidebar";
-
 import css from "./style.module.css";
-import React, { Component } from "react";
 
 class App extends Component {
   state = {
@@ -18,7 +20,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <BrowserRouter>
         <Toolbar
           showSideBar={this.state.showSideBar}
           toggleSideBar={this.toggleSideBar}
@@ -28,9 +30,13 @@ class App extends Component {
           toggleSideBar={this.toggleSideBar}
         />
         <main className={css.Content}>
-          <BurgerPage />
+          <Switch>
+            <Route path="/orders" component={OrderPage} />
+            <Route path="/shipping" exact component={ShippingPage} />
+            <Route path="/" exact component={BurgerPage} />
+          </Switch>
         </main>
-      </div>
+      </BrowserRouter>
     );
   }
 }

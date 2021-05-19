@@ -3,6 +3,7 @@ import Burger from "../../components/Burger";
 import BuildControls from "../../components/BuildControls";
 import OrderSummary from "../../components/OrderSummary";
 import Modal from "../../components/General/Modal";
+import axios from "../../axios";
 
 const INGREDIENTS_PRICE = { salad: 150, cheese: 250, bacon: 800, meat: 1500 };
 
@@ -24,8 +25,38 @@ class BurgerBuilder extends Component {
     confirmOrder: false,
   };
 
+  componentDidMount = () => {};
+
   continueOrder = () => {
-    console.log("continue daragdlaa");
+    this.closeConfirmModal();
+
+    const params = [];
+    for (const key in this.state.ingredients) {
+      params.push(key + "=" + this.state.ingredients[key]);
+    }
+    const query = params.join("&");
+
+    this.props.history.push({
+      pathname: "/shipping",
+      search: query,
+    });
+
+    // this.setState({ loading: true });
+    // const order = {
+    //   orts: this.state.ingredients,
+    //   dun: this.state.totalPrice,
+    //   hayag: {
+    //     name: "Болормаа",
+    //     city: "Дархан",
+    //     street: "HUD, 8-r horoolol",
+    //   },
+    // };
+    // axios
+    //   .post("/orders.json", order)
+    //   .then((res) => {
+    //     console.log("Firebase ruu amjilttai hadgallaa");
+    //   })
+    //   .finally(() => this.setState({ loading: false }));
   };
 
   showConfirmModal = () => {
@@ -76,6 +107,7 @@ class BurgerBuilder extends Component {
             totalPrice={this.state.totalPrice}
           />
         </Modal>
+
         <Burger orts={this.state.ingredients} />
         <BuildControls
           ingredientsNames={INGREDIENTS_NAMES}
