@@ -25,6 +25,7 @@ class OrderPage extends Component {
   }
 
   render() {
+    console.log(this.props.orders);
     return (
       <div>
         {this.state.loading ? (

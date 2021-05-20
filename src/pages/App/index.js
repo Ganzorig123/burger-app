@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Toolbar from "../../components/Toolbar";
 import BurgerPage from "../BurgerPage";
 import OrderPage from "../OrderPage";
@@ -20,7 +20,7 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <div>
         <Toolbar
           showSideBar={this.state.showSideBar}
           toggleSideBar={this.toggleSideBar}
@@ -32,11 +32,11 @@ class App extends Component {
         <main className={css.Content}>
           <Switch>
             <Route path="/orders" component={OrderPage} />
-            <Route path="/shipping" exact component={ShippingPage} />
+            <Route path="/shipping" component={ShippingPage} />
             <Route path="/" exact component={BurgerPage} />
           </Switch>
         </main>
-      </BrowserRouter>
+      </div>
     );
   }
 }

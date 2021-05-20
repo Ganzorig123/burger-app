@@ -1,46 +1,44 @@
-import React, { Component } from "react";
+import React from "react";
+import { connect } from "react-redux";
+import { Route } from "react-router-dom";
 import Burger from "../../components/Burger";
+import ContactData from "../../components/ContactData";
 import Button from "../../components/General/Button";
 import css from "./style.module.css";
 
-class ShippingPage extends Component {
-  state = {
-    ingredients: {
-      bacon: 0,
-      cheese: 0,
-      meat: 0,
-      salad: 0,
-    },
+const ShippingPage = (props) => {
+  const cancelOrder = () => {
+    props.history.goBack();
   };
 
-  componentDidMount() {
-    const query = new URLSearchParams(this.props.location.search);
-
-    const ingredients = {};
-
-    for (const param of query.entries()) {
-      ingredients[param[0]] = param[1];
-    }
-
-    this.setState({ ingredients });
-  }
-
-  goBack = () => {
-    this.props.history.goBack();
+  const showContactData = () => {
+    props.history.replace("/shipping/contact");
   };
 
-  render() {
-    return (
-      <div className={css.ShippingPage}>
-        <Burger orts={this.state.ingredients} />
-        <Button
-          text="Захиалгыг цуцлах"
-          btnType="Danger"
-          clicked={this.goBack}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className={css.ShippingPage}>
+      <p style={{ fontSize: "24px" }}>
+        <strong>Таны захиалга амттай байх болно гэж найдаж байна.</strong>
+      </p>
+      <p style={{ fontSize: "24px" }}>
+        <strong>Дүн: {props.totalPrice}₮</strong>
+      </p>
+      <Burger />
+      <Button text="ЗАХИАЛГЫГ ЦУЦЛАХ" btnType="Danger" clicked={cancelOrder} />
+      <Button
+        text="ХҮРГЭЛТИЙН МЭДЭЭЛЭЛ ОРУУЛАХ"
+        btnType="Success"
+        clicked={showContactData}
+      />
+      <Route path="/shipping/contact">
+        <ContactData />
+      </Route>
+    </div>
+  );
+};
 
-export default ShippingPage;
+const mapStateToProps = (state) => {
+  return { totalPrice: state.totalPrice };
+};
+
+export default connect(mapStateToProps)(ShippingPage);

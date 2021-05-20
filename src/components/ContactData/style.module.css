@@ -1,0 +1,17 @@
+.ContactData {
+  background-color: rgb(243, 237, 226);
+  width: 100%;
+  padding: 10px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 3px #ccc;
+  text-align: center;
+}
+
+.ContactData input {
+  display: block;
+  font-size: 18px;
+  padding: 5px;
+  margin: 10px auto;
+}

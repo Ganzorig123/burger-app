@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import css from "./style.module.css";
 import BuildControl from "../BuildControl";
 
@@ -8,16 +9,8 @@ const BuildControls = (props) => {
       <p>
         Бургерийн үнэ : <strong>{props.totalPrice} ₮</strong>
       </p>
-
-      {Object.keys(props.ingredientsNames).map((el) => (
-        <BuildControl
-          key={el}
-          ortsNemeh={props.ortsNemeh}
-          ortsHasah={props.ortsHasah}
-          disabledIngredients={props.disabledIngredients}
-          type={el}
-          orts={props.ingredientsNames[el]}
-        />
+      {Object.keys(props.ingredientNames).map((el) => (
+        <BuildControl key={el} type={el} orts={props.ingredientNames[el]} />
       ))}
       <button
         disabled={props.totalPrice <= 1000}
@@ -30,4 +23,11 @@ const BuildControls = (props) => {
   );
 };
 
-export default BuildControls;
+const mapStateToProps = (state) => {
+  return {
+    totalPrice: state.totalPrice,
+    ingredientNames: state.ingredientNames,
+  };
+};
+
+export default connect(mapStateToProps)(BuildControls);
