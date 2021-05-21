@@ -26,7 +26,7 @@ const Burger = ({ ingredients }) => {
   );
 };
 
-const a = (state) => {
-  return { ingredients: state.ingredients };
+const a = ({ burgerReducer }) => {
+  return { ingredients: burgerReducer.ingredients };
 };
 export default connect(a)(withRouter(Burger));

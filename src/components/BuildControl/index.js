@@ -19,8 +19,11 @@ const BuildControl = (props) => (
   </div>
 );
 
-const mapStateToProps = (state) => {
-  return { totalPrice: state.totalPrice, ingredients: state.ingredients };
+const mapStateToProps = ({ burgerReducer }) => {
+  return {
+    totalPrice: burgerReducer.totalPrice,
+    ingredients: burgerReducer.ingredients,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

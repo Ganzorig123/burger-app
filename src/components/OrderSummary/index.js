@@ -32,11 +32,11 @@ const OrderSummary = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ burgerReducer }) => {
   return {
-    totalPrice: state.totalPrice,
-    ingredients: state.ingredients,
-    ingredientNames: state.ingredientNames,
+    totalPrice: burgerReducer.totalPrice,
+    ingredients: burgerReducer.ingredients,
+    ingredientNames: burgerReducer.ingredientNames,
   };
 };
 
