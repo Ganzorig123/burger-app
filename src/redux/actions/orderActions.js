@@ -1,13 +1,17 @@
 import axios from "../../axios";
 
 export const loadOrders = () => {
-  return function (dispatch) {
+  return function (dispatch, getState) {
     //Захиалгыг татаж эхэллээ гэдгийг мэдэгдэнэ
     //Энийг хүлээж аваад Spinner ажиллаж эхэлнэ.
     dispatch(loadOrdersStart());
 
+    const userId = getState().loginSignupReducer.userId;
+    const token = getState().loginSignupReducer.token;
+
     axios
-      .get("/orders.json")
+      .get(`/orders.json?auth=${token}&orderBy="userId"&equalTo="${userId}"`)
+
       .then((response) => {
         const orders = Object.entries(response.data).reverse();
         dispatch(loadOrdersSuccess(orders));
@@ -38,12 +42,14 @@ export const loadOrdersError = (error) => {
 
 //Шинэ захиалгыг хадгалах
 export const saveOrder = (newOrder) => {
-  return function (dispatch) {
+  return function (dispatch, getState) {
     dispatch(saveOrderStart());
 
     //Firebase рүү хадгална
+    const userId = getState().loginSignupReducer.userId;
+    const token = getState().loginSignupReducer.token;
     axios
-      .post("/orders.json", newOrder)
+      .post(`/orders.json?auth=${token}`, newOrder)
       .then((res) => {
         dispatch(saveOrderSuccess());
       })

@@ -26,6 +26,7 @@ class ContactData extends Component {
         city: this.state.city,
         street: this.state.street,
       },
+      userId: this.props.userId,
     };
 
     this.props.saveOrderAction(newOrder);
@@ -87,6 +88,7 @@ const mapStateToProps = (state) => {
     totalPrice: state.burgerReducer.totalPrice,
     ingredients: state.burgerReducer.ingredients,
     newOrderStatus: state.orderReducer.newOrder,
+    userId: state.loginSignupReducer.userId,
   };
 };
 

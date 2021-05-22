@@ -11,6 +11,7 @@ import thunk from "redux-thunk";
 
 import burgerReducer from "./redux/reducer/burgerReducer";
 import orderReducer from "./redux/reducer/orderReducer";
+import loginSignupReducer from "./redux/reducer/loginSignupReducer";
 
 const loggerMiddleWare = (store) => {
   return (next) => {
@@ -29,6 +30,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const reducers = combineReducers({
   burgerReducer,
   orderReducer,
+  loginSignupReducer,
 });
 
 const middleWares = [loggerMiddleWare, thunk];

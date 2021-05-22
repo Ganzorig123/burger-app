@@ -11,13 +11,7 @@ const initialState = {
   },
 };
 
-const reducer = (state = initialState, action) => {
-  if (action.type === "LOAD_ORDERS") {
-    return {
-      ...state,
-      loading: true,
-    };
-  }
+const orderReducer = (state = initialState, action) => {
   switch (action.type) {
     case "LOAD_ORDERS_START":
       return {
@@ -37,6 +31,7 @@ const reducer = (state = initialState, action) => {
         loading: false,
         error: action.error,
       };
+
     case "SAVE_ORDER_START":
       return {
         ...state,
@@ -45,7 +40,6 @@ const reducer = (state = initialState, action) => {
           saving: true,
         },
       };
-
     case "SAVE_ORDER_SUCCESS":
       return {
         ...state,
@@ -71,4 +65,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default orderReducer;
