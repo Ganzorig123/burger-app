@@ -26,9 +26,21 @@ class App extends Component {
   componentDidMount() {
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
+    const expireDate = new Date(localStorage.getItem("expireDate"));
+    const refreshToken = localStorage.getItem("refreshToken");
 
     if (userId && token) {
-      this.props.autoLogin(userId, token);
+      if (expireDate > new Date()) {
+        //Hugatsaa duusaagui Token baigaa tul auto login hiine
+        this.props.autoLogin(userId, token);
+
+        //Token huchingui bolgohod uldej baigaa hugsy=tsaag tootsoolj ter hugstsaanii daraa autologout hiine
+        const ms = expireDate.getTime() - new Date().getTime();
+        this.props.autoLogoutAfterMillSec(ms);
+      } else {
+        //Token hugatsaa duussan bainaa
+        this.props.logout();
+      }
     }
   }
 
@@ -77,6 +89,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     autoLogin: (userId, token) =>
       dispatch(actions.loginUserSuccess(userId, token)),
+    logout: () => dispatch(actions.logout()),
+    autoLogoutAfterMillSec: (ms) =>
+      dispatch(actions.autoLogoutAfterMillSec(ms)),
   };
 };
 
