@@ -60,6 +60,11 @@ const orderReducer = (state = initialState, action) => {
           error: action.error,
         },
       };
+    case "CLEAR_ORDER":
+      return {
+        ...state,
+        newOrder: initialState.newOrder,
+      };
     default:
       return state;
   }

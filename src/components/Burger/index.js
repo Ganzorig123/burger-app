@@ -1,10 +1,11 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useContext } from "react";
 import BurgerIngredent from "../BurgerIngredient";
 import css from "./style.module.css";
+import BurgerContext from "../../context/BurgerContext";
 
-const Burger = ({ ingredients }) => {
-  const items = Object.entries(ingredients);
+const Burger = (props) => {
+  const burgerContext = useContext(BurgerContext);
+  const items = Object.entries(burgerContext.ingredients);
   let content = [];
 
   items.map((el, j) => {
@@ -25,7 +26,4 @@ const Burger = ({ ingredients }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { ingredients: state.burgerReducer.ingredients };
-};
-export default connect(mapStateToProps)(Burger);
+export default Burger;

@@ -77,3 +77,9 @@ export const saveOrderError = (error) => {
     error,
   };
 };
+
+export const clearOrder = () => {
+  return {
+    type: "CLEAR_ORDER",
+  };
+};

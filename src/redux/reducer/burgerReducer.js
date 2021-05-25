@@ -36,6 +36,8 @@ const burgerReducer = (state = initialState, action) => {
         },
         totalPrice: state.totalPrice - INGREDIENTS_PRICE[action.ortsNer],
       };
+  } else if (action.type === "CLEAR_ORDER") {
+    return initialState;
   }
   return state;
 };
